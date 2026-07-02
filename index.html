@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en" translate="yes">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gabriel Borges — Backend Developer & AI Engineer. Building REST APIs with Python, FastAPI, Django, and AI-powered applications.">
+  <title>Gabriel Borges | Backend Developer & AI Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d0f;
+      --bg2: rgba(20,20,22,0.85);
+      --bg3: rgba(26,26,30,0.9);
+      --border: rgba(255,255,255,0.08);
+      --border-hover: rgba(255,255,255,0.18);
+      --text: #f0f0f0;
+      --muted: #888;
+      --accent: #e8e8e8;
+      --green: #4ade80;
+      --card-radius: 14px;
+    }
+
+    html, body { overflow-x: hidden; }
+
+    body {
+      font-family: 'DM Mono', monospace;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    #bg-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    header, main, footer { position: relative; z-index: 1; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      #bg-canvas { display: none; }
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 60px clamp(20px, 5vw, 80px) 48px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .header-tag {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    header h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.8rem, 5vw, 3.6rem);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    header h1 span { color: var(--muted); font-weight: 400; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 5px 12px;
+      border-radius: 100px;
+    }
+
+    .badge .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px clamp(20px, 5vw, 80px) 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      padding: 24px;
+      transition: border-color 0.25s ease;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .card:hover { border-color: var(--border-hover); }
+    .card.full { grid-column: 1 / -1; }
+
+    .card-label {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .card h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .summary p { font-size: 14px; color: #bbb; line-height: 1.8; }
+
+    .project-item {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .project-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .project-item:first-child { padding-top: 0; }
+
+    .project-item a {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+      transition: color 0.2s;
+    }
+    .project-item a:hover { color: #fff; }
+
+    .project-stack { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      font-size: 10px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--muted);
+    }
+
+    .tag.live {
+      border-color: rgba(74,222,128,0.3);
+      color: var(--green);
+      background: rgba(74,222,128,0.05);
+    }
+
+    .project-item p { font-size: 12px; color: var(--muted); line-height: 1.7; }
+
+    .tech-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .tech-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      transition: border-color 0.2s;
+    }
+    .tech-item:hover { border-color: var(--border-hover); }
+
+    .tech-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: var(--muted);
+    }
+
+    .tech-item strong {
+      display: block;
+      font-size: 12px;
+      color: var(--accent);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .tech-item span { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+    .cert-empty { font-size: 13px; color: var(--muted); font-style: italic; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px clamp(20px, 5vw, 80px);
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    footer p { font-size: 12px; color: var(--muted); }
+
+    .social-links { display: flex; gap: 12px; }
+
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px; height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .social-links a:hover { border-color: var(--border-hover); color: var(--text); }
+
+    .icon-svg {
+      width: 18px; height: 18px;
+      fill: none; stroke: currentColor;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    @media (max-width: 640px) {
+      main { grid-template-columns: 1fr; }
+      .card.full { grid-column: 1; }
+      .tech-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <canvas id="bg-canvas"></canvas>
+
+  <header>
+    <p class="header-tag">Portfolio </p>
+    <h1>Gabriel Borges<br><span>Backend Dev & AI Engineer</span></h1>
+  </header>
+
+  <main>
+
+    <div class="card full summary">
+      <p class="card-label">About</p>
+      <p>Computer Science student focused on backend development and AI-powered applications. I build REST APIs with Python, develop backend systems with FastAPI and Django, and integrate LLMs to create intelligent automation solutions. Currently focused on scalable backend architecture, AI integrations, and real-world software projects.</p>
+    </div>
+
+    <div class="card full">
+      <p class="card-label">Projects</p>
+      <h2>Personal Work</h2>
+
+      <div class="project-item">
+        <a href="https://api-universidade.onrender.com/docs" target="_blank" rel="noopener noreferrer">API Universidade <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:inline;vertical-align:middle;margin-left:2px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+        <div class="project-stack" translate="no">
+          <span class="tag">FastAPI</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">AI</span>
+          <span class="tag live">Live</span>
+        </div>
+        <p>FastAPI backend with 16 endpoints for academic data management. Includes CRUD operations, PostgreSQL integration, JWT authentication, and AI-powered recommendations based on student performance.</p>
+      </div>
+
+      <div class="project-item">
+        <a href="https://taskflow-api-python.onrender.com/docs" target="_blank" rel="noopener noreferrer">TaskFlow API <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:inline;vertical-align:middle;margin-left:2px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+        <div class="project-stack" translate="no">
+          <span class="tag">FastAPI</span>
+          <span class="tag">JWT</span>
+          <span class="tag">PostgreSQL </span>
+          <span class="tag live">Live</span>
+        </div>
+        <p> RESTful API for task management with JWT authentication, built with FastAPI and PostgreSQL.
+      </div>
+    </div>
+
+    <div class="card full">
+      <p class="card-label">Stack</p>
+      <h2>Technologies & Tools</h2>
+      <div class="tech-grid">
+        <div class="tech-item">
+          <span class="tech-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 12h8M12 8v8"/></svg></span>
+          <div><strong>Python</strong><span>Automation, scripts, and backend applications.</span></div>
+        </div>
+        <div class="tech-item">
+          <span class="tech-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></span>
+          <div><strong>FastAPI · Django</strong><span>REST API creation and web backend frameworks.</span></div>
+        </div>
+        <div class="tech-item">
+          <span class="tech-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/></svg></span>
+          <div><strong>SQL / PostgreSQL</strong><span>Modeling, queries, and data manipulation.</span></div>
+        </div>
+        <div class="tech-item">
+          <span class="tech-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+          <div><strong>Scikit-learn</strong><span>Machine learning library for Python.</span></div>
+        </div>
+        <div class="tech-item">
+          <span class="tech-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
+          <div><strong>Pandas · NumPy</strong><span>Data analysis and scientific computing.</span></div>
+        </div>
+        <div class="tech-item">
+          <span class="tech-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><line x1="6" y1="9" x2="6" y2="21"/></svg></span>
+          <div><strong>Git / GitHub</strong><span>Version control and collaboration.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card full">
+  <p class="card-label">Education & Certifications</p>
+  <h2>Academic Background</h2>
+
+  <div class="project-item">
+    <a href="https://certificates.cs50.io/cd0fc40d-f5df-46fe-813f-0329e4949cde.pdf?size=letter" target="_blank" rel="noopener noreferrer">
+      CS50's Introduction to Programming with Python
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:inline;vertical-align:middle;margin-left:2px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    </a>
+    <div class="project-stack" translate="no">
+      <span class="tag">Harvard University</span>
+      <span class="tag">Python</span>
+      <span class="tag live">2026</span>
+    </div>
+    <p>Completed CS50P covering functions, conditionals, loops, exceptions, libraries, unit testing, file I/O, regular expressions, and object-oriented programming. Final project: a Python quiz application with automated tests.</p>
+  </div>
+   
+</div>
+
+  </main>
+
+  <footer>
+    <p>© Gabriel Borges · 2026 · All rights reserved.</p>
+    <div class="social-links">
+      <a href="mailto:gabriel.borges.dev.ti@gmail.com" aria-label="Email" title="Email">
+        <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 8.5 6a2.5 2.5 0 0 0 3 0L22 7"/></svg>
+      </a>
+      <a href="https://github.com/gabrielborges240" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
+        <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/gabriel-borges-00aa98345" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
+        <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let W, H, dots;
+
+    function resize() {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+
+    function initDots() {
+      dots = Array.from({ length: 80 }, () => ({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        r: Math.random() * 1.5 + 0.5
+      }));
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+
+      // connections
+      for (let i = 0; i < dots.length; i++) {
+        for (let j = i + 1; j < dots.length; j++) {
+          const dx = dots[i].x - dots[j].x;
+          const dy = dots[i].y - dots[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 140) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(255,255,255,${0.06 * (1 - dist / 140)})`;
+            ctx.lineWidth = 0.5;
+            ctx.moveTo(dots[i].x, dots[i].y);
+            ctx.lineTo(dots[j].x, dots[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // dots
+      dots.forEach(d => {
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,255,255,0.18)';
+        ctx.fill();
+
+        d.x += d.vx;
+        d.y += d.vy;
+        if (d.x < 0 || d.x > W) d.vx *= -1;
+        if (d.y < 0 || d.y > H) d.vy *= -1;
+      });
+
+      requestAnimationFrame(draw);
+    }
+
+    resize();
+    initDots();
+    draw();
+    window.addEventListener('resize', () => { resize(); initDots(); });
+  </script>
+
+</body>
+</html>
