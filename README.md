@@ -4,7 +4,7 @@ Personal portfolio built with pure HTML, CSS and JavaScript.
 
 ## Live
 
-[gabrielborges240.github.io/Developer-Portfolio](https://gabrielborges240.github.io/Developer-Portfolio)
+[gabrielborges240.github.io/Developer-Portfolio]( https://gabrielborges240.github.io/Developer-Portfolio/)
 
 ## Stack
 
